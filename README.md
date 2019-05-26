@@ -1,3 +1,3 @@
 # Miscelanea
 
-Repositorio para mantener archivos que no se usarán muy frecuentemente
+Repositorio para mantener archivos extra
