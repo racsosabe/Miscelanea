@@ -45,3 +45,9 @@
 - [Clase 24 - Estructuras de Datos II (Binary Indexed Tree)](https://nbviewer.jupyter.org/github/racsosabe/Miscelanea/blob/master/UPC/Clase%2024%20-%20Estructuras%20de%20Datos%20II.ipynb)
 
 - [Clase 27 - Estructuras de Datos III (Segment Tree)](https://nbviewer.jupyter.org/github/racsosabe/Miscelanea/blob/master/UPC/Clase%2027%20-%20Estructuras%20de%20Datos%20III.ipynb)
+
+## Información
+
+- [Página de Facebook](https://www.facebook.com/gpcupc)
+
+- [Grupo de Codeforces](https://codeforces.com/group/Hz7jTE3LqO/)
