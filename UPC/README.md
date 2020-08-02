@@ -46,6 +46,8 @@
 
 - [Clase 27 - Estructuras de Datos III (Segment Tree)](https://nbviewer.jupyter.org/github/racsosabe/Miscelanea/blob/master/UPC/Clase%2027%20-%20Estructuras%20de%20Datos%20III.ipynb)
 
+- [Clase 29 - Estructuras de Datos IV (Min/Max Stack/Queue y SQRT Decomposition)](https://nbviewer.jupyter.org/github/racsosabe/Miscelanea/blob/master/UPC/Clase%2029%20-%20Estructuras%20de%20Datos%20IV.ipynb)
+
 ## Información
 
 - [Página de Facebook](https://www.facebook.com/gpcupc)
