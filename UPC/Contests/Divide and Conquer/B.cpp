@@ -1,12 +1,6 @@
 #include<bits/stdc++.h>
 using namespace::std;
 
-/*
-	Problem: Pashmak and Parmida's problem - Codeforces 459D
-
-	Author: Racso Galvan
-*/
-
 const int N = 1000000+5;
 
 int n;
@@ -15,7 +9,7 @@ int a[N];
 long long merge(vector<int> &L, vector<int> &R){
 	int pR = 0;
 	long long ans = 0LL;
-	for(int i=0; i<L.size(); i++){
+	for(int i = 0; i < L.size(); i++){
 		while(pR < R.size() and R[pR] < L[i]){
 			pR += 1;
 		}
@@ -36,32 +30,47 @@ long long solve(vector<int> &prefix, vector<int> &suffix){
 	long long ans = 0LL;
 	ans += solve(Lprefix,Lsuffix);
 	ans += solve(Rprefix,Rsuffix);
-	sort(Lprefix.begin(),Lprefix.end());
-	sort(Rsuffix.begin(),Rsuffix.end());
 	ans += merge(Lprefix,Rsuffix);
+	prefix.clear();
+	int pos = 0;
+	for(int i = 0; i < Lprefix.size(); i++){
+		while(pos < Rprefix.size() and Rprefix[pos] <= Lprefix[i]){
+			prefix.emplace_back(Rprefix[pos++]);
+		}
+		prefix.emplace_back(Lprefix[i]);
+	}
+	while(pos < Rprefix.size()) prefix.emplace_back(Rprefix[pos++]);
+	suffix.clear();
+	pos = 0;
+	for(int i = 0; i < Lsuffix.size(); i++){
+		while(pos < Rsuffix.size() and Rsuffix[pos] <= Lsuffix[i]){
+			suffix.emplace_back(Rsuffix[pos++]);
+		}
+		suffix.emplace_back(Lsuffix[i]);
+	}
+	while(pos < Rsuffix.size()) suffix.emplace_back(Rsuffix[pos++]);
 	return ans;
 }
 
 void computePrefix(vector<int> &v){
 	map<int,int> F;
-	for(int i=1; i<=n; i++){
+	for(int i = 1; i <= n; i++){
 		F[a[i]] += 1;
 		v[i-1] = F[a[i]];
 	}
 }
 
 int main(){
-	scanf("%d",&n);
-	for(int i=1; i<=n; i++){
-		scanf("%d",a+i);
+	scanf("%d", &n);
+	for(int i = 1; i <= n; i++){
+		scanf("%d", a + i);
 	}
 	vector<int> prefix(n);
 	computePrefix(prefix);
-	reverse(a+1,a+n+1);
+	reverse(a + 1, a + n + 1);
 	vector<int> suffix(n);
 	computePrefix(suffix);
-	reverse(suffix.begin(),suffix.end());
-	long long ans = solve(prefix,suffix);
-	cout << ans << endl;
+	reverse(suffix.begin(), suffix.end());
+	printf("%lld\n", solve(prefix, suffix));
 	return 0;
 }

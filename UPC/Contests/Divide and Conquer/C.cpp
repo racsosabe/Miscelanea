@@ -1,12 +1,6 @@
 #include<bits/stdc++.h>
 using namespace::std;
 
-/*
-	Problem: Equivalent Strings - Codeforces 559B
-
-	Author: Racso Galvan
-*/
-
 string getMinimalEquivalent(string s){
 	int len = s.size();
 	if(len&1) return s;
@@ -18,8 +12,11 @@ string getMinimalEquivalent(string s){
 
 int main(){
 	string a, b;
+	ios_base::sync_with_stdio(false);
+	cin.tie(0);
+	cout.tie(0);
 	cin >> a >> b;
-	if(getMinimalEquivalent(a) == getMinimalEquivalent(b)) puts("YES");
-	else puts("NO");
+	if(getMinimalEquivalent(a) == getMinimalEquivalent(b)) cout << "YES" << '\n';
+	else cout << "NO" << '\n';
 	return 0;
 }

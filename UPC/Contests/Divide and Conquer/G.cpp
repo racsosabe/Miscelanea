@@ -1,12 +1,6 @@
 #include<bits/stdc++.h>
 using namespace::std;
 
-/*
-	Problem: Creative Snap - Codeforces 1111C
-
-	Author: Racso Galvan
-*/
-
 int n, k, A, B;
 
 long long solve(int L, int R, vector<int> &v){
@@ -16,23 +10,22 @@ long long solve(int L, int R, vector<int> &v){
 	if(len % 2 == 0){
 		vector<int> l;
 		vector<int> r;
-		int mi = (L+R)/2;
-		for(int i=0; i<v.size(); i++){
+		int mi = (L + R) / 2;
+		for(int i = 0; i < v.size(); i++){
 			if(v[i] <= mi) l.emplace_back(v[i]);
 			else r.emplace_back(v[i]);
 		}
-		ans = min(ans,solve(L,mi,l) + solve(mi+1,R,r));
+		ans = min(ans, solve(L, mi, l) + solve(mi+ 1 , R, r));
 	}
 	return ans;
 }
 
 int main(){
-	scanf("%d %d %d %d",&n,&k,&A,&B);
+	scanf("%d %d %d %d", &n, &k, &A, &B);
 	vector<int> v(k);
-	for(int i=0; i<k; i++){
-		scanf("%d",&v[i]);
+	for(int i = 0; i < k; i++){
+		scanf("%d", &v[i]);
 	}
-	long long ans = solve(1,1<<n,v);
-	cout << ans << endl;
+	printf("%lld\n", solve(1, 1<<n, v));
 	return 0;
 }

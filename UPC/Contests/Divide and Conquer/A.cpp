@@ -1,13 +1,6 @@
 #include<bits/stdc++.h>
 using namespace::std;
 
-/*
-	Problem: Imbalanced Array - Codeforces 817D
-
-	Author: Racso Galvan
-
-*/
-
 int n;
 
 long long merge(vector<int> &L, vector<int> &R){

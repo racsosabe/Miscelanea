@@ -1,12 +1,6 @@
 #include<bits/stdc++.h>
 using namespace::std;
 
-/*
-	Problem: Burning Midnight Oil - Codeforces 165B
-
-	Author: Racso Galvan
-*/
-
 int n, k;
 
 long long getLines(long long v, long long K){
@@ -15,13 +9,13 @@ long long getLines(long long v, long long K){
 }
 
 int main(){
-	scanf("%d %d",&n,&k);
-	long long lo = 0LL, hi = 1000000000LL;
+	scanf("%d %d", &n, &k);
+	int lo = 0LL, hi = 1000000000;
 	while(lo < hi){
-		long long mi = lo + (hi-lo)/2;
-		if(getLines(mi,1LL) < 1LL * n) lo = mi+1;
+		int mi = lo + (hi - lo) / 2;
+		if(getLines(mi, 1) < n) lo = mi + 1;
 		else hi = mi;
 	}
-	cout << lo << endl;
+	printf("%d\n", lo);
 	return 0;
 }
