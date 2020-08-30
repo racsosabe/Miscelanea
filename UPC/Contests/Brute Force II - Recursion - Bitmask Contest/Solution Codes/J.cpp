@@ -4,7 +4,9 @@ using namespace::std;
 int n;
 
 int solve(int a, int b){
-	
+	if(b == 0) return 1e7;
+	if(b == 1) return a - 1;
+	return a / b + solve(b, a % b);
 }
 
 int main(){

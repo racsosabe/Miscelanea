@@ -1,36 +1,42 @@
 #include<bits/stdc++.h>
 using namespace::std;
 
-int n, d;
+const int N = 100000+5;
+const int inf = 2e9;
 
-int getLen(int L, vector<int> &v){
-	int lo = L, hi = n - 1;
-	while(lo < hi){
-		int mi = lo + (hi - lo + 1) / 2;
-		if(v[mi] - v[L] <= d) lo = mi;
-		else hi = mi - 1;
-	}
-	return lo - L + 1;
-}
+int n;
+long long k;
+int a[N], b[N];
 
-long long getPairs(long long x){
-	return x * (x - 1) / 2;
-}
-
-long long solve(vector<int> &v){
-	long long ans = 0LL;
+bool can(long long x){
+	long long needed = 0;
 	for(int i = 0; i < n; i++){
-		ans += getPairs(getLen(i, v) - 1);
+		if(x * a[i] > b[i]){
+			needed += x * a[i] - b[i];
+		}
 	}
-	return ans;
+	return needed <= k;
 }
 
 int main(){
-	scanf("%d %d", &n, &d);
-	vector<int> v(n);
+	scanf("%d %lld", &n, &k);
 	for(int i = 0; i < n; i++){
-		scanf("%d", &v[i]);
+		scanf("%d", a + i);
 	}
-	printf("%lld\n", solve(v));
+	for(int i = 0; i < n; i++){
+		scanf("%d", b + i);
+	}
+	int lo = 0, hi = inf;
+	for(int i = 0; i < n; i++){
+		if(hi > (b[i] + k) / a[i] + 1){
+			hi = (b[i] + k) / a[i] + 1;
+		}
+	}
+	while(lo < hi){
+		int mi = lo + (hi - lo + 1) / 2;
+		if(can(mi)) lo = mi;
+		else hi = mi - 1;
+	}
+	printf("%d\n", lo);
 	return 0;
 }

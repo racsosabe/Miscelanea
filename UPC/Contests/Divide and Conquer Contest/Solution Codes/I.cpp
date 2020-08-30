@@ -1,35 +1,36 @@
 #include<bits/stdc++.h>
 using namespace::std;
 
-const int L = 24;
-const int N = 1<<24;
+const int N = 100000+5;
 
 int n;
-char s[5];
-int memo[N];
+int d;
+long long prefix[N];
+
+long long getBest(int L, vector< pair<int,int> > &v){
+	int lo = L, hi = n - 1;
+	while(lo < hi){
+		int mi = lo + (hi - lo + 1) / 2;
+		if(v[mi].first - v[L].first < d) lo = mi;
+		else hi = mi - 1;
+	}
+	return prefix[lo + 1] - prefix[L];
+}
 
 int main(){
-	scanf("%d", &n);
+	scanf("%d %d", &n, &d);
+	vector< pair<int,int> > v(n);
 	for(int i = 0; i < n; i++){
-		scanf("%s", s);
-		int mask = 0;
-		for(int j = 0; j < 3; j++){
-			mask |= 1<<(s[j]-'a');
-		}
-		memo[mask] += 1;
+		scanf("%d %d", &v[i].first, &v[i].second);
 	}
-	for(int i = 0; i < L; i++){
-		for(int mask = 0; mask < N; mask++){
-			if(mask & (1<<i))
-				memo[mask] += memo[mask ^ (1<<i)];
-		}
+	sort(v.begin(), v.end());
+	for(int i = 1; i <= n; i++){
+		prefix[i] = prefix[i-1] + v[i-1].second;
 	}
-	int ans = 0;
-	int total = N - 1;
-	for(int i = 0; i < N; i++){
-		int act = n - memo[i ^ total];
-		ans ^= act * act;
+	long long ans = 0LL;
+	for(int i = 0; i < n; i++){
+		ans = max(ans,getBest(i, v));
 	}
-	printf("%d\n", ans);
+	printf("%lld\n", ans);
 	return 0;
 }

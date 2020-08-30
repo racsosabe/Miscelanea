@@ -2,35 +2,32 @@
 using namespace::std;
 
 const int N = 100000+5;
+const int inf = 2e9;
 
 int n;
-int d;
-long long prefix[N];
-
-long long getBest(int L, vector< pair<int,int> > &v){
-	int lo = L, hi = n - 1;
-	while(lo < hi){
-		int mi = lo + (hi - lo + 1) / 2;
-		if(v[mi].first - v[L].first < d) lo = mi;
-		else hi = mi - 1;
-	}
-	return prefix[lo + 1] - prefix[L];
-}
+int a[N];
+int ans[N];
+int memo[N];
 
 int main(){
-	scanf("%d %d", &n, &d);
-	vector< pair<int,int> > v(n);
+	scanf("%d",&n);
 	for(int i = 0; i < n; i++){
-		scanf("%d %d", &v[i].first, &v[i].second);
+		scanf("%d", a + i);
 	}
-	sort(v.begin(), v.end());
-	for(int i = 1; i <= n; i++){
-		prefix[i] = prefix[i-1] + v[i-1].second;
+	memo[n] = inf;
+	for(int i = n - 1; i >= 0; i--){
+		int lo = i, hi = n;
+		while(lo < hi){
+			int mi = lo + (hi - lo + 1) / 2;
+			if(a[i] > memo[mi]) lo = mi;
+			else hi = mi - 1;
+		}
+		if(lo == i) ans[i] = -1;
+		else ans[i] = lo - i - 1;
+		memo[i] = min(a[i], memo[i+1]);
 	}
-	long long ans = 0LL;
 	for(int i = 0; i < n; i++){
-		ans = max(ans,getBest(i, v));
+		printf("%d%c", ans[i], " \n"[i + 1 == n]);
 	}
-	printf("%lld\n", ans);
 	return 0;
 }
