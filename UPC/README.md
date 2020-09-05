@@ -50,6 +50,10 @@
 
 - [Clase 30 - Greedy I (Interval Scheduling, Interval Partitioning y Minimizing Lateness)](https://nbviewer.jupyter.org/github/racsosabe/Miscelanea/blob/master/UPC/Clase%2030%20-%20Greedy%20I.ipynb)
 
+- [Clase 32 - Greedy II (Optimal Offline Caching, Johnson's Rule y Exchange Arguments)](https://nbviewer.jupyter.org/github/racsosabe/Miscelanea/blob/master/UPC/Clase%2032%20-%20Greedy%20II.ipynb)
+
+- [Clase 33 - Strings I (Hashing, Z-function, Manacher y KMP)](https://nbviewer.jupyter.org/github/racsosabe/Miscelanea/blob/master/UPC/Clase%2033%20-%20Strings%20I.ipynb)
+
 ## Información
 
 - [Página de Facebook](https://www.facebook.com/gpcupc)
