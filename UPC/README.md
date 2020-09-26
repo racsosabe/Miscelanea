@@ -54,7 +54,9 @@
 
 - [Clase 33 - Strings I (Hashing, Z-function, Manacher y KMP)](https://nbviewer.jupyter.org/github/racsosabe/Miscelanea/blob/master/UPC/Clase%2033%20-%20Strings%20I.ipynb)
 
-- [Clase 34 - Strings II (Trie y Aho-Corasick Automaton)](https://nbviewer.jupyter.org/github/racsosabe/Miscelanea/blob/master/UPC/Clase%2034%20-%20Strings%20II.ipynb)
+- [Clase 34 - Strings II (KMP Automaton y Trie)](https://nbviewer.jupyter.org/github/racsosabe/Miscelanea/blob/master/UPC/Clase%2034%20-%20Strings%20II.ipynb)
+
+- [Clase 35 - Strings III (Problemas de Trie y Aho-Corasick Automaton)](https://nbviewer.jupyter.org/github/racsosabe/Miscelanea/blob/master/UPC/Clase%2034%20-%20Strings%20II.ipynb)
 
 ## Información
 
