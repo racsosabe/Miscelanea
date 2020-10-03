@@ -58,6 +58,8 @@
 
 - [Clase 35 - Strings III (Problemas de Trie y Aho-Corasick Automaton)](https://nbviewer.jupyter.org/github/racsosabe/Miscelanea/blob/master/UPC/Clase%2034%20-%20Strings%20II.ipynb)
 
+- [Clase 36 - Strings IV (Suffix Array y LCP Array)](https://nbviewer.jupyter.org/github/racsosabe/Miscelanea/blob/master/UPC/Clase%2036%20-%20Strings%20III.ipynb)
+
 ## Información
 
 - [Página de Facebook](https://www.facebook.com/gpcupc)
