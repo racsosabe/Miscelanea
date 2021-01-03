@@ -62,7 +62,9 @@
 
 - [Clase 38 - Estructuras de Datos V (Segment Tree + Lazy Propagation y Persistente)](https://nbviewer.jupyter.org/github/racsosabe/Miscelanea/blob/master/UPC/Clase%2038%20-%20Estructuras%20de%20Datos%20V.ipynb)
 
-- [Clase 41 - Estructuras de Datos VI (Treap)](https://nbviewer.jupyter.org/github/racsosabe/Miscelanea/blob/master/UPC/Clase%2041%20-%20Estructuras%20de%20Datos%20VI.ipynb)
+- [Clase 41 - Estructuras de Datos VI (Treap simple)](https://nbviewer.jupyter.org/github/racsosabe/Miscelanea/blob/master/UPC/Clase%2041%20-%20Estructuras%20de%20Datos%20VI.ipynb)
+
+- [Clase 42 - Estructuras de Datos VII (Treap implicito, lazy propagation y Heavy-Light Decomposition)](https://nbviewer.jupyter.org/github/racsosabe/Miscelanea/blob/master/UPC/Clase%2042%20-%20Estructuras%20de%20Datos%20VII.ipynb)
 
 ## Información
 
