@@ -66,6 +66,8 @@
 
 - [Clase 42 - Estructuras de Datos VII (Treap implicito, lazy propagation y Heavy-Light Decomposition)](https://nbviewer.jupyter.org/github/racsosabe/Miscelanea/blob/master/UPC/Clase%2042%20-%20Estructuras%20de%20Datos%20VII.ipynb)
 
+- [Clase 43 - Estructuras de Datos VIII (Heavy-Light Decomposition problems y Small to Large Trick)](https://nbviewer.jupyter.org/github/racsosabe/Miscelanea/blob/master/UPC/Clase%2043%20-%20Estructuras%20de%20Datos%20VIII.ipynb)
+
 ## Información
 
 - [Página de Facebook](https://www.facebook.com/gpcupc)
