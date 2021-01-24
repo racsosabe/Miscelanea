@@ -68,6 +68,8 @@
 
 - [Clase 43 - Estructuras de Datos VIII (Heavy-Light Decomposition problems y Small to Large Trick)](https://nbviewer.jupyter.org/github/racsosabe/Miscelanea/blob/master/UPC/Clase%2043%20-%20Estructuras%20de%20Datos%20VIII.ipynb)
 
+- [Clase 44 - Estructuras de Datos IX (Centroid Decomposition - Parte I)](https://nbviewer.jupyter.org/github/racsosabe/Miscelanea/blob/master/UPC/Clase%2044%20-%20Estructuras%20de%20Datos%20IX.ipynb)
+
 ## Información
 
 - [Página de Facebook](https://www.facebook.com/gpcupc)
