@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace::std;
 
-const int N = 100000+5;
+const int N = 100000 + 5;
 
 struct DSegTree{
 	int xmin;
@@ -79,7 +79,7 @@ int main(){
 		return x[i] < x[j];
 	});
 	DSegTree st;
-	for(int i = n-1; i >= 0; i--){
+	for(int i = n - 1; i >= 0; i--){
 		int l = x[p[i]];
 		int r = x[p[i]] + h[p[i]] - 1;
 		ans[p[i]] = max(st.query(l, r) - i, 0) + 1;

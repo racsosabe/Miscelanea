@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace::std;
 
-const int N = 100000+5;
+const int N = 100000 + 5;
 const int LOG = 20;
 
 int n;
@@ -69,7 +69,7 @@ int main(){
 			scanf("%d %d", &l, &r);
 			long long ans = 0LL;
 			for(int i = 0; i < LOG; i++){
-				ans += (1LL<<i) * query(i, l, r);
+				ans += (1LL << i) * query(i, l, r);
 			}
 			printf("%lld\n", ans);
 		}
@@ -77,7 +77,7 @@ int main(){
 			int l, r, x;
 			scanf("%d %d %d", &l, &r, &x);
 			for(int i = 0; i < LOG; i++){
-				if(x & (1<<i)){
+				if(x & (1 << i)){
 					update(i, l, r);
 				}
 			}

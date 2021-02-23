@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace::std;
 
-const int N = 100000+5;
+const int N = 100000 + 5;
 const int LOG = 18;
 
 int gcd(int a, int b){ return b == 0? a : gcd(b, a % b);}
@@ -42,7 +42,7 @@ int query(int x, int y, int z, int pos = 1, int l = 1, int r = n){
 void buildST(){
 	for(int i = 1; i <= n; i++) ST[i][0] = a[i];
 	for(int d = 1; 1 << d <= n; d++){
-		int dis = 1<<(d - 1);
+		int dis = 1 << (d - 1);
 		for(int i = 1; i + 2 * dis - 1 <= n; i++){
 			ST[i][d] = gcd(ST[i][d - 1], ST[i + dis][d - 1]);
 		}
@@ -52,14 +52,14 @@ void buildST(){
 int queryST(int l, int r){
 	int d = r - l + 1;
 	int k = 31 - __builtin_clz(d);
-	int dis = 1<<k;
+	int dis = 1 << k;
 	return gcd(ST[l][k], ST[r - dis + 1][k]);
 }
 
 int main(){
 	scanf("%d", &n);
 	for(int i = 1; i <= n; i++){
-		scanf("%d", a+i);
+		scanf("%d", a + i);
 	}
 	build();
 	buildST();

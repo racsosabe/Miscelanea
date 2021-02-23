@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace::std;
 
-const int N = 400000+5;
+const int N = 400000 + 5;
 
 int n;
 int len;
@@ -55,7 +55,7 @@ int query(int x, int y, int pos = 1, int l = 0, int r = len - 1){
 int main(){
 	scanf("%d", &n);
 	for(int i = 1; i <= n; i++){
-		scanf("%d %d", a+i, b+i);
+		scanf("%d %d", a + i, b + i);
 	}
 	compress();
 	vector<int> p(len);

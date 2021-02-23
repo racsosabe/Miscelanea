@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace::std;
 
-const int N = 200000+5;
+const int N = 200000 + 5;
 
 int n;
 int st[4 * N];

@@ -21,7 +21,7 @@ void update(int x, int y, int z, int pos = 1, int l = 1, int r = n){
 }
 
 int query(int x, int y, int pos = 1, int l = 1, int r = n){
-	if(y < l or r < x or x > y) return n+1;
+	if(y < l or r < x or x > y) return n + 1;
 	if(x <= l and r <= y) return st[pos];
 	int mi = (l + r) / 2;
 	return min(query(x, y, 2 * pos, l, mi), query(x, y, 2 * pos + 1, mi + 1, r));

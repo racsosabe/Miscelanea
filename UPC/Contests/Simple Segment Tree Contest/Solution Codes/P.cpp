@@ -1,95 +1,88 @@
 #include<bits/stdc++.h>
+#define mp make_pair
 using namespace::std;
 
-const int N = 100000+5;
-const int inf = 1e9;
- 
-struct DSegTree{
-	int n;
-	int nodes;
-	vector<int> st;
-	vector<int> L, R;
- 
-	DSegTree(){
-		nodes = 0;
-		n = 100000 + 1;
-		addNode();
-	};
- 
-	void addNode(){
-		st.emplace_back(0);
-		L.emplace_back(-1);
-		R.emplace_back(-1);
-		nodes += 1;
-	}
- 
-	void update(int x, int y, int pos, int l, int r){
-		if(l == r){
-			st[pos] = max(st[pos], y);
-			return;
-		}
-		int mi = (l + r) / 2;
-		if(l <= x and x <= mi){
-			if(L[pos] == -1){
-				L[pos] = nodes;
-				addNode();
-			}
-			update(x, y, L[pos], l, mi);
-		}
-		else{
-			if(R[pos] == -1){
-				R[pos] = nodes;
-				addNode();
-			}
-			update(x, y, R[pos], mi + 1, r);
-		}
-		int Lans = L[pos] >= 0? st[L[pos]] : -inf;
-		int Rans = R[pos] >= 0? st[R[pos]] : -inf;
-		st[pos] = max(Lans, Rans);
-	}
- 
-	int query(int x, int y, int pos, int l, int r){
-		if(y < l or r < x or x > y){
-			return 0;
-		}
-		if(pos == -1) return 0;
-		if(x <= l and r <= y){
-			return st[pos];
-		}
-		int mi = (l + r) / 2;
-		return max(query(x, y, L[pos], l, mi), query(x, y, R[pos], mi+1, r));
-	}
- 
-	void update(int x, int y){
-		update(x, y, 0, 0, n);
-	}
- 
-	int query(int x){
-		return query(0, x, 0, 0, n);
-	}
-};
- 
-int n, m;
+/* Inicial:
+ * f(x) = x
+ * Luego, en [l,r]
+ * f(x) = y
+ * (f o g) es asociativa
+ *
+ * Para todo 1 <= x <= 100 voy a guardar un st que me va dar la funcion final
+ * de biyección
+ *
+ * f(i, x) = y
+ *
+ * Tranformación en el tiempo i de los valores x.
+ *
+ *
+ * Guardamos la tupla (t, x, y) si es que f(t, x) = y se activa en el rango
+ * Guardamos la tupla (t, x, x) si es que f(t, x) = y se desactiva en el rango ->
+ * f(t, x) = x
+*/
+
+const int N = 200000 + 5;
+const int M = 100 + 5;
+
+typedef pair<int,int> ii;
+typedef pair<int,ii> iii;
+
+int n;
+int q;
 int a[N];
-int b[N];
-int w[N];
-int memo[N];
-int best[N];
-DSegTree st[N];
- 
+queue<iii> Q[N];
+int st[4 * N][M];
+
+void merge(int p, int l, int r){
+	for(int i = 1; i <= 100; i++){
+		st[p][i] = st[r][st[l][i]];
+	}
+}
+
+void build(int pos = 1, int l = 0, int r = q - 1){
+	if(l == r){
+		for(int i = 1; i <= 100; i++){
+			st[pos][i] = i;
+		}
+		return;
+	}
+	int mi = (l + r) / 2;
+	build(2 * pos, l, mi);
+	build(2 * pos + 1, mi + 1, r);
+	merge(pos, 2 * pos, 2 * pos + 1);
+}
+
+void update(int t, int x, int y, int pos = 1, int l = 1, int r = q){
+	if(l == r){
+		st[pos][x] = y;
+		return;
+	}
+	int mi = (l + r) / 2;
+	if(l <= t and t <= mi) update(t, x, y, 2 * pos, l, mi);
+	else update(t, x, y, 2 * pos + 1, mi + 1, r);
+	merge(pos, 2 * pos, 2 * pos + 1);
+}
+
 int main(){
-	scanf("%d %d", &n, &m);
-	int ans = 0;
-	for(int i = 1; i <= m; i++){
-		scanf("%d %d %d", &a[i], &b[i], &w[i]);
-		a[i] ^= ans;
-		b[i] ^= ans;
-		w[i] ^= ans;
-		w[i] += 1;
-		int cur_best = 1 + st[a[i]].query(w[i]-1);
-		ans = max(ans, cur_best);
-		printf("%d\n", ans);
-		st[b[i]].update(w[i], cur_best);
+	scanf("%d", &n);
+	for(int i = 1; i <= n; i++){
+		scanf("%d", &a[i]);
+	}
+	scanf("%d", &q);
+	int l, r, x, y;
+	for(int i = 1; i <= q; i++){
+		scanf("%d %d %d %d", &l, &r, &x, &y);
+		Q[l].emplace(mp(i, mp(x, y)));
+		Q[r+1].emplace(mp(i, mp(x, x)));
+	}
+	build();
+	for(int i = 1; i <= n; i++){
+		while(!Q[i].empty()){
+			iii act = Q[i].front();
+			Q[i].pop();
+			update(act.first, act.second.first, act.second.second);
+		}
+		printf("%d%c", st[1][a[i]], " \n"[i == n]);
 	}
 	return 0;
 }

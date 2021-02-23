@@ -2,57 +2,94 @@
 using namespace::std;
 
 const int N = 100000 + 5;
-const int LOG = 30;
-
-int n;
-int m;
-int L[N];
-int R[N];
-int x[N];
-int st[LOG][4 * N];
-
-void update(int id, int x, int y, int pos = 1, int l = 1, int r = n){
-	if(y < l or r < x or st[id][pos]) return;
-	if(l == r){
-		st[id][pos] = 1;
-		return;
+const int inf = 1e9;
+ 
+struct DSegTree{
+	int n;
+	int nodes;
+	vector<int> st;
+	vector<int> L, R;
+ 
+	DSegTree(){
+		nodes = 0;
+		n = 100000 + 1;
+		addNode();
+	};
+ 
+	void addNode(){
+		st.emplace_back(0);
+		L.emplace_back(-1);
+		R.emplace_back(-1);
+		nodes += 1;
 	}
-	int mi = (l + r) / 2;
-	update(id, x, y, 2 * pos, l, mi);
-	update(id, x, y, 2 * pos + 1, mi + 1, r);
-	st[id][pos] = min(st[id][2 * pos], st[id][2 * pos + 1]);
-}
-
-int query(int id, int x, int y, int pos = 1, int l = 1, int r = n){
-	if(y < l or r < x or x > y) return 1;
-	if(x <= l and r <= y) return st[id][pos];
-	int mi = (l + r) / 2;
-	return min(query(id, x, y, 2 * pos, l, mi), query(id, x, y, 2 * pos + 1, mi + 1, r));
-}
-
+ 
+	void update(int x, int y, int pos, int l, int r){
+		if(l == r){
+			st[pos] = max(st[pos], y);
+			return;
+		}
+		int mi = (l + r) / 2;
+		if(l <= x and x <= mi){
+			if(L[pos] == -1){
+				L[pos] = nodes;
+				addNode();
+			}
+			update(x, y, L[pos], l, mi);
+		}
+		else{
+			if(R[pos] == -1){
+				R[pos] = nodes;
+				addNode();
+			}
+			update(x, y, R[pos], mi + 1, r);
+		}
+		int Lans = L[pos] >= 0? st[L[pos]] : -inf;
+		int Rans = R[pos] >= 0? st[R[pos]] : -inf;
+		st[pos] = max(Lans, Rans);
+	}
+ 
+	int query(int x, int y, int pos, int l, int r){
+		if(y < l or r < x or x > y){
+			return 0;
+		}
+		if(pos == -1) return 0;
+		if(x <= l and r <= y){
+			return st[pos];
+		}
+		int mi = (l + r) / 2;
+		return max(query(x, y, L[pos], l, mi), query(x, y, R[pos], mi+1, r));
+	}
+ 
+	void update(int x, int y){
+		update(x, y, 0, 0, n);
+	}
+ 
+	int query(int x){
+		return query(0, x, 0, 0, n);
+	}
+};
+ 
+int n, m;
+int a[N];
+int b[N];
+int w[N];
+int memo[N];
+int best[N];
+DSegTree st[N];
+ 
 int main(){
 	scanf("%d %d", &n, &m);
+	int ans = 0;
 	for(int i = 1; i <= m; i++){
-		scanf("%d %d %d", &L[i], &R[i], &x[i]);
-		for(int j = 0; j < LOG; j++){
-			if((x[i] >> j) & 1) update(j, L[i], R[i]);
-		}
-	}
-	for(int i = 1; i <= m; i++){
-		for(int j = 0; j < LOG; j++){
-			if(query(j, L[i], R[i]) != ((x[i] >> j) & 1)){
-				puts("NO");
-				return 0;
-			}
-		}
-	}
-	puts("YES");
-	for(int i = 1; i <= n; i++){
-		int val = 0;
-		for(int j = 0; j < LOG; j++){
-			val |= query(j, i, i)<<j;
-		}
-		printf("%d%c", val, " \n"[i == n]);
+		scanf("%d %d %d", &a[i], &b[i], &w[i]);
+		a[i] ^= ans;
+		b[i] ^= ans;
+		w[i] ^= ans;
+		w[i] += 1;
+		int cur_best = 1 + st[a[i]].query(w[i]-1);
+		ans = max(ans, cur_best);
+		printf("%d\n", ans);
+		st[b[i]].update(w[i], cur_best);
 	}
 	return 0;
 }

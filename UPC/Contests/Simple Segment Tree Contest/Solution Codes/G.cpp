@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace::std;
 
-const int N = 100000+5;
+const int N = 100000 + 5;
 const int inf = 1e9;
 
 struct DSegTree{
@@ -57,7 +57,7 @@ struct DSegTree{
 			return st[pos];
 		}
 		int mi = (l + r) / 2;
-		return max(query(x, y, L[pos], l, mi), query(x, y, R[pos], mi+1, r));
+		return max(query(x, y, L[pos], l, mi), query(x, y, R[pos], mi + 1, r));
 	}
 
 	void update(int x, int y){

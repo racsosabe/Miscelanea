@@ -6,13 +6,67 @@ using namespace::std;
 
 	Idea:
 
-	- Segment Tree problem.
+	- Nice Segment Tree problem.
 
-	- This is just a particular case of D2, so please check that solution for more
+	- Let's make some observations to solve this problem.
 
-	  references.
+	- Observation 1: One MUST pass over all the nodes in the path from A to B, 
 
-	- Complexity: O(n log(n + m)).
+	  so we can take them as a reference.
+
+	- Observation 2: It makes no sense to move from our current position u to a 
+	
+	  further position v from B and don't refill the tank.
+
+	- Observation 3: Thanks to 2, we can just consider going to a node v that doesn't
+
+	  belong to the mandatory ones to refill our tank and nothing else.
+
+	- Observation 4: Now, our problem reduces to a simple path (like D1) but with
+
+	  some ramifications over some nodes.
+
+	- Observation 5: We just need all the minimum costs for all the possible tank values
+
+	  when arriving to a node, but after one step all those values will be reduced
+
+	  by 1.
+
+	- Observation 6: One can think of using a lazy propagation method to make the
+
+	  substraction, but it's not needed. We will mantain a value S so that each
+
+	  position X in our segment tree will actually represent X - S.
+
+	  Initially S = 0, so we have a value of m with cost 0, after advancing one
+
+	  step S increases to 1 and that previous value of m now represents m - 1,
+
+	  which is correct.
+
+	- Observation 7: To insert a new value X to the segment tree with the representation
+
+	  we must insert it in position X + (current S).
+
+	- Observation 8: If we are in a mandatory node u and try to refill our tank
+
+	  by going to node v (in the non-mandatory subtree of u) we need at least
+
+	  dist(u, v) of fuel (thus, we must query the minimum cost from all the values
+	  
+	  >= dist(u, v) + S in the segment tree), and then we will return to u by
+
+	  consuming dist(u, v) of fuel, so we have a new possible state in u but with
+
+	  m - dist(u, v). We must update our segment tree in position m - dist(u, v) + S
+
+	  with the cost.
+
+	- The final answer is the minimum of all the positions >= dist(A, B) when
+
+	  arriving to B. If it's infinity, the answer is -1.
+
+	- Complexity: O(n log(n + m))
 */
 
 const int N = 1000000+5;
@@ -44,16 +98,16 @@ void update(int x, long long y, int pos = 1, int l = 1, int r = len){
 		return;
 	}
 	int mi = (l + r) / 2;
-	if(l <= x and x <= mi) update(x, y, 2*pos, l, mi);
-	else update(x, y, 2*pos+1, mi+1, r);
-	st[pos] = min(st[2*pos], st[2*pos+1]);
+	if(l <= x and x <= mi) update(x, y, 2 * pos, l, mi);
+	else update(x, y, 2 * pos + 1, mi + 1, r);
+	st[pos] = min(st[2 * pos], st[2 * pos + 1]);
 }
 
 long long query(int x, int y, int pos = 1, int l = 1, int r = len){
 	if(y < l or r < x or x > y) return inf;
 	if(x <= l and r <= y) return st[pos];
 	int mi = (l + r) / 2;
-	return min(query(x, y, 2*pos, l, mi), query(x, y, 2*pos+1, mi+1, r));
+	return min(query(x, y, 2 * pos, l, mi), query(x, y, 2 * pos + 1, mi + 1, r));
 }
 
 void getSubtree(int x){
@@ -76,7 +130,7 @@ void getSubtree(int x){
 		return h[i] < h[j];
 	});
 	for(int i = 0; i < subtree.size(); i++){
-		if(i == 0 or h[subtree[i - 1]] != h[subtree[i]]){
+		if(i == 0 or h[subtree[i-1]] != h[subtree[i]]){
 			changes[x].emplace_back(make_pair(h[subtree[i]], c[subtree[i]]));
 		}
 	}
@@ -142,25 +196,20 @@ void clearAll(){
 	}
 }
 
-void addEdge(int u, int v){
-	G[u].emplace_back(v);
-	G[v].emplace_back(u);
-}
-
 int main(){
 	int t;
 	scanf("%d", &t);
 	for(int caso = 1; caso <= t; caso++){
-		scanf("%d %d", &n, &m);
-		a = 1;
-		b = n;
+		scanf("%d %d %d %d", &n, &m, &a, &b);
 		for(int i = 1; i <= n; i++){
-			scanf("%d", c + i);
-			if(i - 1 >= 1) addEdge(i - 1, i);
-			if(i + 1 <= n) addEdge(i + 1, i);
+			int p;
+			scanf("%d %d", &p, c + i);
+			G[p].emplace_back(i);
+			G[i].emplace_back(p);
 		}
 		printf("Case #%d: %lld\n", caso, solve());
 		if(caso < t) clearAll();
 	}
 	return 0;
 }
+

@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace::std;
 
-const int N = 200000+5;
+const int N = 200000 + 5;
 
 int n;
 int q;
@@ -15,7 +15,7 @@ vector<int> I[N];
 
 void init(){
 	for(int i = 1; i <= n; i++){
-		for(int j = i; j <= n; j+=i){
+		for(int j = i; j <= n; j += i){
 			int l = id[i];
 			int r = id[j];
 			if(l > r) swap(l, r);
@@ -65,7 +65,7 @@ int main(){
 	}
 	for(int i = 1; i <= q; i++){
 		int r;
-		scanf("%d %d",L+i, &r);
+		scanf("%d %d",L + i, &r);
 		Q[r].emplace_back(i);
 	}
 	init();

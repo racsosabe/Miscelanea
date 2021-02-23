@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace::std;
 
-const int N = 1000000+5;
+const int N = 1000000 + 5;
 
 struct node{
 	int abren;

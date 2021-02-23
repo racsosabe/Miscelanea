@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace::std;
 
-const int N = 100000+5;
+const int N = 100000 + 5;
 const int LOG = 10;
 const int MOD = 4001;
 
@@ -92,7 +92,7 @@ int main(){
 		else{
 			int ans = 0;
 			for(int i = 0; i < LOG; i++){
-				ans = add(ans, mul((1LL<<i), query(i, l, r).ans));
+				ans = add(ans, mul((1LL << i), query(i, l, r).ans));
 			}
 			printf("%d\n", ans);
 		}

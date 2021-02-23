@@ -1,8 +1,8 @@
 #include<bits/stdc++.h>
 using namespace::std;
 
-const int N = 300000+5;
-const int M = 1000000+5;
+const int N = 300000 + 5;
+const int M = 1000000 + 5;
 
 int n;
 int q;
