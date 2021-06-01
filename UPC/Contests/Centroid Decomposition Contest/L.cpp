@@ -31,17 +31,59 @@ vector<int> primos;
 void init(){
 	for(int i = 2; i < N; i++){
 		if(not composite[i]){
-			cnt[i] = 1;
+			pf[i] = i;
 			primos.emplace_back(i);
 		}
 		for(int p : primos){
 			if(i * p >= N) break;
 			composite[i * p] = true;
-			if(i % p == 0){
-				cnt[i * p] = 3;
+			pf[i * p] = p;
+			if(i % p == 0) break;
+		}
+	}
+	for(int i = 2; i < N; i++){
+		int x = i;
+		while(x != 1){
+			int f = pf[x];
+			int e = 0;
+			while(x % f == 0){
+				e += 1;
+				x /= f;
+			}
+			if(e > 1){
+				cnt[i] = 3;
+				break;
 			}
 			else{
-				cnt[i * p] = cnt[i] + 1;
+				cnt[i] += 1;
+			}
+		}
+	}
+}
+
+bool checkProd(long long x, long long y){
+	if(x == 1 or y == 1) return true;
+	return x % y != 0;
+}
+
+void update(int u, int p, int w){
+	if(w == 1){
+		h[u] = h[p];
+		c[u] = c[p];
+	}
+	else{
+		if(cnt[w] + c[p] > 2){
+			h[u] = -1;
+			c[u] = 3;
+		}
+		else{
+			if(checkProd(h[p], w)){
+				h[u] = h[p] * w;
+				c[u] = c[p] + cnt[w];
+			}
+			else{
+				h[u] = -1;
+				c[u] = 3;
 			}
 		}
 	}
@@ -55,16 +97,7 @@ void DFS(int u, int p = -1){
 		int v = G[u][i];
 		int w = W[u][i];
 		if(removed[v] or v == p) continue;
-		if(h[u] == -1) c[v] = 3;
-		else if(h[u] % w == 0 and w > 1){
-			c[v] = 3;
-		}
-		else if(h[u] != -1){
-			h[v] = h[u] * w;
-			c[v] = c[u] + cnt[w];
-		}
-		c[v] = min(c[v], 3);
-		if(c[v] > 2) h[v] = -1;
+		update(v, u, w);
 		DFS(v, u);
 		subtree[u] += subtree[v];
 	}
@@ -84,26 +117,23 @@ void add(int u){
 	h[u] = 1;
 	c[u] = 0;
 	DFS(u);
-	int cnt0 = 1;
-	int cnt1 = 0;
+	vector<int> Q(3, 0);
+	Q[0] = 1;
 	for(int v : G[u]){
 		if(removed[v]) continue;
 		for(int i = in[v]; i <= out[v]; i++){
 			int at = a[i];
-			if(c[at] == 2){
-				ans += cnt0;
-			}
-			if(c[at] == 1){
-				ans += cnt1 - F[h[at]];
+			if(c[at] <= 2){
+				ans += Q[2 - c[at]];
+				if(c[at] == 1) ans -= F[h[at]];
 			}
 		}
 		for(int i = in[v]; i <= out[v]; i++){
 			int at = a[i];
-			if(c[at] == 1){
-				F[h[at]] += 1;
-				cnt1 += 1;
+			if(c[at] <= 2){
+				Q[c[at]] += 1;
+				if(c[at] == 1) F[h[at]] += 1;
 			}
-			if(h[at] == 1) cnt0 += 1;
 		}
 	}
 	for(int i = in[u]; i <= out[u]; i++){
@@ -114,6 +144,8 @@ void add(int u){
 
 void decompose(int u){
 	T = 0;
+	h[u] = 1;
+	c[u] = 0;
 	DFS(u);
 	int c = centroid(u, u, subtree[u]);
 	add(c);

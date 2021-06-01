@@ -2,22 +2,44 @@
 using namespace::std;
 
 const int N = 500000 + 5;
-const int MASK = 1 << 22;
+const int MOD = 5000000;
+const int E = 26;
 
 int n;
 int T;
 int a[N];
 int b[N];
+int c[N];
 int h[N];
 int in[N];
 int out[N];
 int ans[N];
 int nxt[N];
-int last[MASK];
-int subtree[N];
 int values[N];
+int subtree[N];
 vector<int> G[N];
 vector<int> libres;
+vector<int> my_map[MOD];
+vector<int> my_key[MOD];
+
+void assign(int x, int y){
+	int id = x % MOD;
+	for(int i = 0; i < my_key[id].size(); i++){
+		if(my_key[id][i] == x){
+			my_map[id][i] = y;
+		}
+	}
+}
+
+int get(int x){
+	int id = x % MOD;
+	for(int i = 0; i < my_key[id].size(); i++){
+		if(my_key[id][i] == x){
+			return my_map[id][i];
+		}
+	}
+	return -1;
+}
 
 void DFS(int u){
 	a[T] = u;
@@ -37,22 +59,25 @@ void DFS(int u){
 }
 
 int getMax(int mask){
-	return last[mask] == -1 ? -n : values[last[mask]];
+	int L = get(mask);
+	return L != -1 ? values[L] : -n;
 }
 
 void insert(int mask, int height){
-	int new_height = last[mask] != -1 ? max(values[last[mask]], height) : height;
+	int L = get(mask);
+	int new_height = L != -1 ? max(values[L], height) : height;
 	int pos = libres.back();
 	libres.pop_back();
-	nxt[pos] = last[mask];
+	nxt[pos] = L;
 	values[pos] = new_height;
-	last[mask] = pos;
+	assign(mask, pos);
 }
 
 void remove(int mask){
-	assert(last[mask] != -1);
-	libres.emplace_back(last[mask]);
-	last[mask] = nxt[last[mask]];
+	int L = get(mask);
+	assert(L != -1);
+	libres.emplace_back(L);
+	assign(mask, nxt[L]);
 }
 
 void solve(int u, int keep){
@@ -67,7 +92,7 @@ void solve(int u, int keep){
 			int at = a[i];
 			int my_h = b[at];
 			cur = max(cur, h[at] + getMax(my_h) - 2 * h[u]);
-			for(int j = 0; j < 22; j++){
+			for(int j = 0; j < E; j++){
 				int want = my_h ^ (1 << j);
 				cur = max(cur, h[at] + getMax(want) - 2 * h[u]);
 			}
@@ -78,7 +103,7 @@ void solve(int u, int keep){
 		}
 	}
 	cur = max(cur, getMax(b[u]) - h[u]);
-	for(int j = 0; j < 22; j++){
+	for(int j = 0; j < E; j++){
 		int want = b[u] ^ (1 << j);
 		cur = max(cur, getMax(want) - h[u]);
 	}
@@ -98,11 +123,22 @@ int main(){
 		scanf("%d", &p);
 		char l = getchar();
 		while(!isalpha(l)) l = getchar();
-		b[i] = 1 << (l - 'a');
+		b[i] = c[i] = 1 << (l - 'a');
 		G[p].emplace_back(i);
 	}
 	DFS(1);
-	memset(last, -1, sizeof last);
+	vector<int> p(n);
+	iota(p.begin(), p.end(), 1);
+	sort(p.begin(), p.end(), [&] (int i, int j){
+		return b[i] < b[j];
+	});
+	for(int i = 0; i < n; i++){
+		if(i == 0 or b[p[i - 1]] != b[p[i]]){
+			int id = b[p[i]] % MOD;
+			my_key[id].emplace_back(b[p[i]]);
+			my_map[id].emplace_back(-1);
+		}
+	}
 	for(int i = 0; i < n; i++) libres.emplace_back(i);
 	solve(1, 1);
 	for(int i = 1; i <= n; i++){
@@ -110,4 +146,3 @@ int main(){
 	}
 	return 0;
 }
-
