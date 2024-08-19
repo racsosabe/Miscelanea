@@ -1,133 +1,131 @@
 <html><head><title>sqtpm</title>
-    <meta name="charset" content="UTF-8">
-    <link href="icon.png" rel="icon" type="image/png">
-    <link rel="stylesheet" type="text/css" href="sqtpm.css">
-    <link rel="stylesheet" type="text/css" href="google-code-prettify/prettify.css">
-    </head>
-    <body>
-    <div id="sidebar"><h1>sqtpm</h1><p style="margin-top:-15px"><small>[victor]</small></p><a href="javascript:;" onclick="wrap('hlp','envio')">ajuda</a><br><a href="javascript:;" onclick="window.history.go(-1); return false;">voltar</a></div><div class="content"><form method="post" action="sqtpm" enctype="multipart/form-data" name="sqtpm"><script type="text/javascript" src="sqtpm.js"></script><input type="hidden" name="action"><input type="hidden" name="arg1"><input type="hidden" name="arg2"><input type="hidden" name="arg3"><b>Trabalho:</b> 01-meteoros<p>Data de abertura: 13/08/2024 17:00:00<br>Data limite para envio: 20/08/2024 16:00:00 (<font color="Teal">aberto</font>)<p>Número máximo de envios: 30<br>Número de arquivos a enviar: entre 1 e 3<p>Número de envios de victor: 4<br>Último envio:</b> <a href="javascript:;" onclick="wrap('rep','01-meteoros','victor');">13/08/2024 18:12:54 (100%)</a><p>Casos-de-teste abertos: <a href="javascript:;" onclick="wrap('dwn','01-meteoros','','casos-de-teste.tgz')";>casos-de-teste.tgz</a><br>Casos-de-teste: <a href="javascript:;" onclick="wrap('dwn','01-meteoros','','casos-de-teste-todos.tgz')";>casos-de-teste.tgz</a><p><b>Grupos:&nbsp; </b><a href="javascript:;"onclick="wrap('scr','202','01-meteoros');">202</a>&nbsp; <a href="javascript:;"onclick="wrap('scr','ovts','01-meteoros');">ovts</a>&nbsp; <a href="javascript:;"onclick="wrap('scr','profs','01-meteoros');">profs</a>&nbsp; <input type='hidden' name='submassign' value='01-meteoros'><p><b>Enviar:</b></p><table cellspacing="0" border="0"><tr><td>Linguagem: &nbsp;<select name="language" >
-    <option value="C">C</option>
-    </select></td><td style="padding-left:30px">Arquivos: &nbsp;<input type="file" name="source" multiple></td><td style="padding-left:30px"><input type="submit" class="button" name="subm" value="Enviar" onclick="javascript:wrap('sub')"></td></table><p><p><hr>
+<meta name="charset" content="UTF-8">
+<link href="icon.png" rel="icon" type="image/png">
+<link rel="stylesheet" type="text/css" href="sqtpm.css">
+<link rel="stylesheet" type="text/css" href="google-code-prettify/prettify.css">
+</head>
+<body>
+<div id="sidebar"><h1>sqtpm</h1><p style="margin-top:-15px"><small>[victor]</small></p><a href="javascript:;" onclick="wrap('hlp','envio')">ajuda</a><br><a href="javascript:;" onclick="window.history.go(-1); return false;">voltar</a></div><div class="content"><form method="post" action="sqtpm" enctype="multipart/form-data" name="sqtpm"><script type="text/javascript" src="sqtpm.js"></script><input type="hidden" name="action"><input type="hidden" name="arg1"><input type="hidden" name="arg2"><input type="hidden" name="arg3"><b>Trabalho:</b> 01-meteoros<p>Data de abertura: 13/08/2024 17:00:00<br>Data limite para envio: 20/08/2024 16:00:00 (<font color="Teal">aberto</font>)<p>Número máximo de envios: 30<br>Número de arquivos a enviar: entre 1 e 3<p>Número de envios de victor: 4<br>Último envio:</b> <a href="javascript:;" onclick="wrap('rep','01-meteoros','victor');">13/08/2024 18:12:54 (100%)</a><p>Casos-de-teste abertos: <a href="javascript:;" onclick="wrap('dwn','01-meteoros','','casos-de-teste.tgz')";>casos-de-teste.tgz</a><br>Casos-de-teste: <a href="javascript:;" onclick="wrap('dwn','01-meteoros','','casos-de-teste-todos.tgz')";>casos-de-teste.tgz</a><p><b>Grupos:&nbsp; </b><a href="javascript:;"onclick="wrap('scr','202','01-meteoros');">202</a>&nbsp; <a href="javascript:;"onclick="wrap('scr','ovts','01-meteoros');">ovts</a>&nbsp; <a href="javascript:;"onclick="wrap('scr','profs','01-meteoros');">profs</a>&nbsp; <input type='hidden' name='submassign' value='01-meteoros'><p><b>Enviar:</b></p><table cellspacing="0" border="0"><tr><td>Linguagem: &nbsp;<select name="language" >
+<option value="C">C</option>
+</select></td><td style="padding-left:30px">Arquivos: &nbsp;<input type="file" name="source" multiple></td><td style="padding-left:30px"><input type="submit" class="button" name="subm" value="Enviar" onclick="javascript:wrap('sub')"></td></table><p><p><hr>
 
-    <script type="text/javascript"
-        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-    </script>
-    <style>
-    .testcase, .testcase th, .testcase td {
-      border: 1px solid black;
-      background: #F0F0F0;
-      border-collapse: collapse;
-      vertical-align: top;
-      margin-left: 20px; 
-      margin-right: auto;
-    }
-    
-    .testcase td {
-      padding: 5px;
-      padding-top: 0px;
-      padding-bottom: 0px;
-      width: 350px;
-      color: black;
-    }
-    
-    .monospc {
-      padding: 0px;
-      white-space: pre;
-      margin: 0px;
-      font-size: 90%;
-    }
-    </style>
-    
-    
-    <h1>Centróide</h1>
-    
-    <p>
-    Dada uma árvore com \(n\) nós, a sua tarefa é encontrar um <i>centróide</i>, ou seja, um nó tal que, quando ele é apontado como a raiz da árvore, cada subárvore tenha no máximo \(\left\lfloor \frac{n}{2} \right\rfloor\) nós.
-    
-    São dados
-    
-    <ul>
-    <li>
-        Um inteiro \(n\), a quantidade de nós da árvore
-    </li>
-    <li>
-        A lista de arestas \(u, v\) que compõem a árvore.
-    </li>
-    </ul>
-    
-    <h3>Entrada</h3>
-    
-    A primeira linha de entrada contém um número inteiro \(n\): o número de nós. Os nós são numerados de \(1, 2, \ldots, n\).
+<style>
+.testcase, .testcase th, .testcase td {
+  border: 1px solid black;
+  background: #F0F0F0;
+  border-collapse: collapse;
+  vertical-align: top;
+  margin-left: 20px; 
+  margin-right: auto;
+}
 
-    Em seguida, há \(n - 1\) linhas descrevendo as arestas. Cada linha contém dois inteiros \(a\) e \(b\): existe uma aresta entre os nós \(a\) e \(b\).
-    
-    <h3>Saída</h3>
-    
-    Imprima um número inteiro: um nó centróide. Se houver várias possibilidades, você pode escolher qualquer uma delas.
-    
-    <h3>Restrições</h3>
+.testcase td {
+  padding: 5px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  width: 350px;
+  color: black;
+}
 
-    <ul>
-        <li>\(1 \leq n \leq 2 \cdot 10^{5}\)</li>
-        <li>É garantido que o grafo dado é uma árvore.</li>
-    </ul>
-    
+.monospc {
+  padding: 0px;
+  white-space: pre;
+  margin: 0px;
+  font-size: 90%;
+}
+</style>
 
-    <h3>Exemplo</h3>
-    
-    <!--exemplo-->
-    <table><tr>
-    <td valign="top"><table class="testcase">
-    <th>Entrada</th><tr><td><pre class="monospc">
-5
-1 2
-2 3
-3 4
-3 5
-    
-    </pre></td></tr></table></td>
-    
-    <td valign="top"><table class="testcase">
-    <th>Saída</th><tr><td><pre class="monospc">
+
+<h1>Soma de divisores</h1>
+
+<p>
+Ivett descobriu que você está aprendendo C pela primeira vez. 
+Ela sabe os benefícios de usar a função scanf adequadamente, 
+então ela te deu o seguinte desafio: Dado três inteiros \(a\), \(b\) e \(c\), 
+calcule a soma de todos os divisores de \(c\) que estejam entre \(a\) e \(b\). 
+
+No entanto, para não tornar a tarefa tão fácil, 
+ela forneceu os dados no formato CSV (valores separados por vírgula), 
+o que significa que a entrada não tem a estrutura "a b c", mas sim "a,b,c".
+
+<h3>Entrada</h3>
+
+A entrada consiste de vários casos de teste. 
+  
+A única linha de cada caso de teste contém três inteiros \(a\), \(b\) e \(c\) separados por vírgula.
+
+<h3>Saída</h3>
+
+Para cada caso de teste, imprima em uma linha a resposta correspondente.
+
+<h3>Restrições</h3>
+
+<ul>
+    <li>\(1 \leq a \leq b \leq 10^{9}\)</li>
+    <li>\(\sum\limits b_{i} - a_{i} + 1 \leq 10^{5}\). Ou seja, a soma das distâncias entre \(a\) e \(b\) em todos os casos de teste não excede \(10^{5}\).</li>
+    <li>\(1 \leq c \leq 10^{18}\)</li>
+</ul>
+
+
+<h3>Exemplo</h3>
+
+<!--exemplo-->
+<table><tr>
+<td valign="top"><table class="testcase">
+<th>Entrada</th><tr><td><pre class="monospc">
+1,10,2
+2,30,7
+40,60,17
+1,500,1000000000
+999999718,1000000000,19999994360
+
+</pre></td></tr></table></td>
+
+<td valign="top"><table class="testcase">
+<th>Saída</th><tr><td><pre class="monospc">
 3
-    
-    </pre></td></tr></table></td>
-    </tr></table>
-    
-    </pre></td></tr></table></td>
-    
-    
-      
-    <h3>Requisitos adicionais</h3>
-    
-    <ul>
-    <li>Não pode haver qualquer variável global.  Uma variável é global
-    se estiver declarada fora de alguma função (variáveis declaradas
-    dentro da main não são globais, são locais à função main).
-    </ul>
-    
-    
-    <h3>Sugestões</h3>
-    
-    <ul>
-    <li>
-    Comece fazendo um programa que apenas lê a entrada e imprime.  Depois
-    adicione as demais funcionalidades.
-    </ul>
-    
-    
-    <h3>Sobre organização do código e comentários</h3>
-    
-    <ul>
-    <li>
-    Faça um programa organizado, bem indentado e que seja fácil de ler.
-    <li>
-    Adicione comentários que vão ser úteis para entender o programa se
-    você for relê-lo daqui a alguns anos: comentar cada linha vai ser
-    redundante; documentar blocos de código e a estratégia usada na
-    solução vai ser muito útil.
-    </ul>
-    
-    <hr></form></div></div>
-    </body>
-    </html>
+7
+0
+2796
+999999718
+
+</pre></td></tr></table></td>
+</tr></table>
+
+</pre></td></tr></table></td>
+  
+<h3>Requisitos adicionais</h3>
+
+<ul>
+<li>Não pode haver qualquer variável global.  Uma variável é global
+se estiver declarada fora de alguma função (variáveis declaradas
+dentro da main não são globais, são locais à função main).
+</ul>
+
+
+<h3>Sugestões</h3>
+
+<ul>
+<li>
+Comece fazendo um programa que apenas lê a entrada e imprime.  Depois
+adicione as demais funcionalidades.
+</ul>
+
+
+<h3>Sobre organização do código e comentários</h3>
+
+<ul>
+<li>
+Faça um programa organizado, bem indentado e que seja fácil de ler.
+<li>
+Adicione comentários que vão ser úteis para entender o programa se
+você for relê-lo daqui a alguns anos: comentar cada linha vai ser
+redundante; documentar blocos de código e a estratégia usada na
+solução vai ser muito útil.
+</ul>
+
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<hr></form></div></div>
+</body>
+</html>
