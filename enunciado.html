@@ -36,7 +36,6 @@
 
 .limits {
   border: 1px black;
-  background: #FFFFFF;
   border-collapse: collapse;
   vertical-align: top;
   margin-left: auto; 
@@ -67,6 +66,80 @@
     background-color: #def;
 }
 
+/* Popup container - can be anything you want */
+.popup {
+  float: right;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  float: right;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  float: right;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 750ms forwards;
+  animation: fadeIn 750ms forwards;
+}
+
+.popup .hide {
+  visibility: visible;
+  -webkit-animation: fadeOut 750ms forwards;
+  animation: fadeOut 750ms forwards;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;} 
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+@-webkit-keyframes fadeOut {
+  from {opacity: 1;} 
+  to {opacity: 0;}
+}
+
+@keyframes fadeOut {
+  from {opacity: 1;}
+  to {opacity: 0;}
+}
 </style>
 
 
@@ -114,6 +187,9 @@ Para cada caso de teste, imprima em uma linha a resposta correspondente.
 <td valign="top"><table class="testcase">
 <th class="input-output-header">Entrada
   <button class="input-output-copier" style="text-align: right;" type="button" onclick="copy_text('input1')">Colar</button>
+  <div class="popup">
+    <span class="popuptext" id="input1"></span>
+  </div>
 </th><tr><td><pre class="monospc" id="input1">
 1,10,2
 2,30,7
@@ -126,6 +202,9 @@ Para cada caso de teste, imprima em uma linha a resposta correspondente.
 <td valign="top"><table class="testcase">
 <th class="input-output-header">Saída
   <button class="input-output-copier" style="text-align: right;" type="button" onclick="copy_text('output1')">Colar</button>
+  <div class="popup">
+    <span class="popuptext" id="output1"></span>
+  </div>
 </th><tr><td><pre class="monospc" id="output1">
 3
 7
@@ -191,6 +270,28 @@ solução vai ser muito útil.
     
     // Alert the copied text
     //alert("Copied the text: " + copyText.value);
+
+    console.log(elementId.substring(0, elementId.length - 1));
+
+    let type = elementId.substring(0, elementId.length - 1) == "input" ? 'entrada' : 'saída';
+
+    let text = 'O exemplo de ' + type + ' foi copiado para o clipboard';
+
+    // Adding pop-up of text copied
+
+    var myPopUp = document.getElementById(elementId);
+    myPopUp.innerHTML = text;
+    myPopUp.classList.add("show");
+    setTimeout(() => {
+      myPopUp.classList.remove('show');
+      myPopUp.classList.add('hide');
+    }, 750); // 1 second for fade-in
+
+    // After another 1 second, hide the popup
+    setTimeout(() => {
+      myPopUp.classList.remove('hide');
+      myPopUp.style.display = 'none';
+    }, 750 * 2); // 1 second for fade-out
   }
 </script>
 
