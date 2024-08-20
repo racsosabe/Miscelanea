@@ -33,10 +33,50 @@
   margin: 0px;
   font-size: 90%;
 }
+
+.limits {
+  border: 1px black;
+  background: #FFFFFF;
+  border-collapse: collapse;
+  vertical-align: top;
+  margin-left: auto; 
+  margin-right: auto;
+}
+
+.input-output-header {
+  background: #F0F0F0;
+  justify-content: right;
+  align-items: right;
+  border-collapse: collapse;
+  vertical-align: top;
+  margin-left: auto; 
+  margin-right: auto;
+}
+
+.input-output-copier {
+  background: #F0F0F0;
+  float: right;
+  cursor: pointer;
+  border: 1px solid black;
+  padding: 3px;
+  margin: 1px;
+  text-transform: none;
+}
+
+.input-output-copier:hover {
+    background-color: #def;
+}
+
 </style>
 
 
-<h1>Soma de divisores</h1>
+<center><h1>Soma de divisores</h1></center>
+
+<center><table class="limits">
+  <tr><td><center>Tempo Limite: 1 s</center></td></tr>
+  <tr><td><center>Limite de Memória: 512 MB</center></td></tr>
+</table>
+</center>
 
 <p>
 Ivett descobriu que você está aprendendo C pela primeira vez. 
@@ -72,7 +112,9 @@ Para cada caso de teste, imprima em uma linha a resposta correspondente.
 <!--exemplo-->
 <table><tr>
 <td valign="top"><table class="testcase">
-<th>Entrada</th><tr><td><pre class="monospc">
+<th class="input-output-header">Entrada
+  <button class="input-output-copier" style="text-align: right;" type="button" onclick="copy_text('input1')">Colar</button>
+</th><tr><td><pre class="monospc" id="input1">
 1,10,2
 2,30,7
 40,60,17
@@ -82,7 +124,9 @@ Para cada caso de teste, imprima em uma linha a resposta correspondente.
 </pre></td></tr></table></td>
 
 <td valign="top"><table class="testcase">
-<th>Saída</th><tr><td><pre class="monospc">
+<th class="input-output-header">Saída
+  <button class="input-output-copier" style="text-align: right;" type="button" onclick="copy_text('output1')">Colar</button>
+</th><tr><td><pre class="monospc" id="output1">
 3
 7
 0
@@ -125,6 +169,30 @@ solução vai ser muito útil.
 </ul>
 
 <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<script type="text/javascript">
+
+  function copy_text(elementId) {
+    // Get the text field
+
+    var copyText = document.getElementById(elementId).textContent;
+
+    console.log(copyText);
+
+    const textArea = document.createElement('textarea');
+    textArea.textContent = copyText;
+  
+    // Select the text field
+    textArea.select();
+    textArea.setSelectionRange(0, 99999); // For mobile devices
+  
+    // Copy the text inside the text field
+    navigator.clipboard.writeText(textArea.value);
+    
+    // Alert the copied text
+    //alert("Copied the text: " + copyText.value);
+  }
+</script>
 
 <hr></form></div></div>
 </body>
